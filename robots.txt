@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aarxnn18.github.io/uk-finance-toolkit-2026/sitemap.xml
