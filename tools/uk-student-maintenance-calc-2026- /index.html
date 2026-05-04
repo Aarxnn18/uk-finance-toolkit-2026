@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Loan Calculator 2026/27 | UK Student Finance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-rose-50 text-rose-900 font-sans min-h-screen">
+
+    <div class="max-w-xl mx-auto py-12 px-6">
+        <header class="text-center mb-10">
+            <div class="inline-block bg-rose-200 text-rose-800 text-[10px] font-bold px-3 py-1 rounded-full uppercase mb-4 tracking-widest">2026/27 Academic Year</div>
+            <h1 class="text-3xl font-black">Student <span class="text-rose-600">Maintenance</span> Calc</h1>
+            <p class="text-rose-700/60 mt-1 text-sm">Estimate your living cost support for the new term.</p>
+        </header>
+
+        <div class="bg-white rounded-[2rem] p-8 shadow-xl border border-rose-100">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs font-bold text-rose-300 mb-2 uppercase tracking-widest">Total Household Income (£)</label>
+                    <input type="number" id="income" placeholder="e.g. 30000" class="w-full p-4 bg-rose-50/50 border border-rose-100 rounded-2xl outline-none focus:ring-2 focus:ring-rose-500 text-lg font-bold">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-rose-300 mb-2 uppercase tracking-widest">Where will you live?</label>
+                    <select id="living" class="w-full p-4 bg-rose-50/50 border border-rose-100 rounded-2xl outline-none font-medium">
+                        <option value="home">Living with Parents</option>
+                        <option value="away">Away from Home (Outside London)</option>
+                        <option value="london">Away from Home (In London)</option>
+                    </select>
+                </div>
+
+                <button onclick="calcMaintenance()" class="w-full bg-rose-600 text-white font-bold py-5 rounded-2xl hover:bg-rose-700 transition-all shadow-lg shadow-rose-100 uppercase tracking-widest">Calculate My Loan</button>
+            </div>
+
+            <div id="loan-result" class="hidden mt-10 space-y-4">
+                <div class="p-6 bg-rose-900 rounded-3xl text-center text-white">
+                    <p class="text-rose-300 text-xs font-bold uppercase tracking-widest mb-2">Estimated Annual Loan</p>
+                    <h2 id="total-loan" class="text-5xl font-black mb-2">£0</h2>
+                    <p class="text-rose-200 text-[10px] uppercase tracking-tighter">Approx. <span id="termly">£0</span> per term</p>
+                </div>
+                
+                <div class="bg-rose-50 border border-rose-100 p-5 rounded-2xl">
+                    <p class="text-xs text-rose-800 leading-relaxed text-center italic">
+                        "Your household income reduces your loan. Parents are often expected to contribute the difference."
+                    </p>
+                </div>
+
+                <a href="https://impact.com" class="block w-full bg-slate-900 text-white text-center font-bold py-4 rounded-xl hover:bg-slate-800 transition-colors uppercase text-xs tracking-widest">Get a Student Bank Account with a £2k Overdraft →</a>
+            </div>
+        </div>
+
+        <p class="mt-8 text-center text-rose-800/40 text-[9px] uppercase leading-tight font-medium">Based on 2026/27 English funding rules. [span_1](start_span)Max loans: £9,118 (Home), £10,830 (Away), £14,135 (London)[span_1](end_span).</p>
+    </div>
+
+    <script>
+        function calcMaintenance() {
+            const income = parseFloat(document.getElementById('income').value);
+            const living = document.getElementById('living').value;
+            
+            if(!income && income !== 0) return;
+
+            [span_2](start_span)// 2026/27 Base Values[span_2](end_span)
+            let maxLoan, minLoan;
+            if(living === 'home') { maxLoan = 9118; minLoan = 4013; }
+            else if(living === 'london') { maxLoan = 14135; minLoan = 7039; }
+            else { maxLoan = 10830; minLoan = 5048; }
+
+            [span_3](start_span)let estimatedLoan = maxLoan;
+            if(income > 25000) {
+                // Approximate taper logic based on 2026/27 reduction rates[span_3](end_span)
+                const reduction = (income - 25000) * 0.15; 
+                estimatedLoan = Math.max(minLoan, maxLoan - reduction);
+            }
+
+            document.getElementById('total-loan').innerText = "£" + Math.round(estimatedLoan);
+            document.getElementById('termly').innerText = "£" + Math.round(estimatedLoan / 3);
+            document.getElementById('loan-result').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
