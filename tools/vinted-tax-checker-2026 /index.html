@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta name='impact-site-verification' value='d94c14d5-4b37-42e2-9724-1560adda8b82'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinted & eBay Tax Calculator 2026 | UK HMRC Side Hustle Checker</title>
+    <meta name="description" content="Check if you owe HMRC tax on your Vinted, eBay, or Depop sales for the 2026 tax year. Free, anonymous UK trading allowance tool.">
+    
+    <!-- Machine Learning & SEO Tags -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Side Hustle Tax Checker",
+      "applicationCategory": "FinanceApplication",
+      "description": "Calculates if UK side hustle income exceeds the £1,000 trading allowance.",
+      "operatingSystem": "Web"
+    }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans">
+
+    <div class="max-w-2xl mx-auto py-16 px-6">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-black tracking-tight mb-3 text-slate-800">Side Hustle Tax Checker <span class="text-emerald-600">2026</span></h1>
+            <p class="text-slate-500 font-medium text-lg">Instant, anonymous check for Vinted, eBay, and Etsy sellers.</p>
+        </header>
+
+        <main class="bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden">
+            <div class="p-8 md:p-12">
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-widest">Total Sales in Last 12 Months</label>
+                        <div class="relative">
+                            <span class="absolute left-5 top-5 text-slate-400 font-bold text-xl">£</span>
+                            <input type="number" id="sales" placeholder="0.00" class="w-full p-5 pl-10 bg-slate-50 border-2 border-slate-100 rounded-2xl outline-none focus:border-emerald-500 transition-all font-bold text-2xl text-slate-800">
+                        </div>
+                    </div>
+
+                    <button onclick="calculate()" class="w-full bg-slate-900 text-white font-black py-5 rounded-2xl hover:bg-emerald-600 transition-all transform hover:scale-[1.01] shadow-xl text-lg uppercase tracking-wider">
+                        Check My Liability
+                    </button>
+                </div>
+
+                <!-- HIDDEN RESULT AREA -->
+                <div id="result" class="hidden mt-10 pt-10 border-t border-slate-100">
+                    <div id="status-card" class="p-8 rounded-2xl border-2 mb-8 text-center">
+                        <p id="status-title" class="text-2xl font-black mb-2"></p>
+                        <p id="status-text" class="text-slate-600 font-medium"></p>
+                    </div>
+
+                    <!-- REVENUE BOX (This is where your link goes later) -->
+                    <div class="bg-amber-50 border border-amber-200 p-8 rounded-3xl text-center">
+                        <h3 class="text-amber-900 font-black text-lg mb-2">Need to register with HMRC?</h3>
+                        <p class="text-amber-800 text-sm mb-6">HMRC is now receiving data directly from digital platforms. Get a professional tax return done for a flat fee.</p>
+                        <a href="https://impact.com" id="money-link" target="_blank" class="block w-full bg-amber-400 hover:bg-amber-500 text-amber-950 font-black py-4 rounded-xl transition-all shadow-md text-lg">
+                            Get Professional Tax Help →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="mt-12 text-center text-slate-400 text-xs px-4">
+            <p class="leading-relaxed">
+                This tool uses the 2026 HMRC Trading Allowance rules (£1,000 threshold). <br>
+                <strong>Privacy:</strong> We do not collect, store, or share your financial data.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function calculate() {
+            const sales = parseFloat(document.getElementById('sales').value);
+            const res = document.getElementById('result');
+            const card = document.getElementById('status-card');
+            const title = document.getElementById('status-title');
+            const text = document.getElementById('status-text');
+
+            if (!sales || sales < 0) return alert("Please enter a valid amount.");
+
+            res.classList.remove('hidden');
+
+            if (sales <= 1000) {
+                card.className = "p-8 rounded-2xl border-2 border-emerald-200 bg-emerald-50 text-center";
+                title.innerText = "✅ You're Safe";
+                title.className = "text-2xl font-black mb-2 text-emerald-700";
+                text.innerText = "Your income is within the £1,000 Trading Allowance. No action is required unless you have other income sources.";
+            } else {
+                card.className = "p-8 rounded-2xl border-2 border-red-200 bg-red-50 text-center";
+                title.innerText = "⚠️ Tax May Be Due";
+                title.className = "text-2xl font-black mb-2 text-red-700";
+                text.innerText = "You have exceeded the £1,000 allowance. You likely need to register for Self Assessment with HMRC.";
+            }
+
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
