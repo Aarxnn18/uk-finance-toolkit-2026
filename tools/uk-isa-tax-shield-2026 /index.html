@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISA vs Savings Tax Calculator 2026 | UK Savings Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans min-h-screen">
+
+    <div class="max-w-xl mx-auto py-12 px-6">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl font-black text-slate-900">Savings <span class="text-cyan-600">Tax Shield</span></h1>
+            <p class="text-slate-500 mt-2 text-sm">Don't let HMRC take a cut of your interest.</p>
+        </header>
+
+        <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-slate-100">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">Total Savings Amount (£)</label>
+                    <input type="number" id="savings" placeholder="e.g. 25000" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none focus:ring-2 focus:ring-cyan-500 text-lg font-bold">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-400 mb-2 uppercase tracking-widest">Your Income Tax Band</label>
+                    <select id="taxBand" class="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl outline-none font-medium">
+                        <option value="1000">Basic Rate (20%)</option>
+                        <option value="500">Higher Rate (40%)</option>
+                        <option value="0">Additional Rate (45%)</option>
+                    </select>
+                </div>
+
+                <button onclick="calculateShield()" class="w-full bg-cyan-600 text-white font-bold py-5 rounded-2xl hover:bg-cyan-700 transition-all shadow-lg shadow-cyan-100 uppercase tracking-wide">Check My Tax Leakage</button>
+            </div>
+
+            <div id="shield-result" class="hidden mt-10 p-6 bg-slate-900 rounded-3xl text-white">
+                <p class="text-cyan-400 text-xs font-bold uppercase tracking-widest mb-2 text-center">Your Annual "Savings Tax"</p>
+                <h2 id="tax-amount" class="text-5xl font-black mb-4 text-center">£0</h2>
+                
+                <div class="bg-white/10 p-4 rounded-xl text-sm text-slate-200 mb-6 text-center italic">
+                    "Moving this to an ISA would save you <span id="shield-total" class="font-bold text-white">£0</span> per year."
+                </div>
+
+                <a href="https://impact.com" class="block w-full bg-cyan-500 text-white text-center font-bold py-4 rounded-xl hover:bg-cyan-400 transition-colors">Open a 2026/27 Tax-Free ISA →</a>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-[10px] text-slate-400 text-center uppercase leading-relaxed">
+            Based on 2026/27 ISA allowance of £20,000 and current average interest rates of 4.5%.
+        </div>
+    </div>
+
+    <script>
+        function calculateShield() {
+            const savings = parseFloat(document.getElementById('savings').value);
+            const psa = parseFloat(document.getElementById('taxBand').value); // Personal Savings Allowance
+            const rate = 0.045; // 4.5% interest rate
+            
+            if(!savings) return;
+
+            const annualInterest = savings * rate;
+            const taxableInterest = Math.max(0, annualInterest - psa);
+            
+            // Determine tax rate based on PSA value
+            let taxRate = 0.20;
+            if (psa === 500) taxRate = 0.40;
+            if (psa === 0) taxRate = 0.45;
+
+            const taxOwed = taxableInterest * taxRate;
+
+            document.getElementById('tax-amount').innerText = "£" + Math.round(taxOwed);
+            document.getElementById('shield-total').innerText = "£" + Math.round(taxOwed);
+            document.getElementById('shield-result').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
