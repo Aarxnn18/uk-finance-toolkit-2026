@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Payrise & Inflation Calculator | UK Salary Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans min-h-screen">
+
+    <div class="max-w-xl mx-auto py-16 px-6">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl font-extrabold mb-2 tracking-tight">Salary <span class="text-emerald-500">Growth</span> 2026</h1>
+            <p class="text-zinc-500 text-sm">Calculate your "Real" income after taxes and price rises.</p>
+        </header>
+
+        <div class="bg-zinc-900 rounded-[2rem] p-8 shadow-2xl border border-zinc-800">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-[10px] font-black text-zinc-500 mb-2 uppercase tracking-[0.2em]">Current Annual Salary</label>
+                    <input type="number" id="currentSalary" placeholder="e.g. 45000" class="w-full p-5 bg-zinc-950 border border-zinc-800 rounded-2xl outline-none focus:border-emerald-500 text-xl font-mono">
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black text-zinc-500 mb-2 uppercase tracking-[0.2em]">Proposed Payrise (%)</label>
+                    <input type="number" id="risePercent" placeholder="e.g. 5" class="w-full p-5 bg-zinc-950 border border-zinc-800 rounded-2xl outline-none focus:border-emerald-500 text-xl font-mono">
+                </div>
+
+                <button onclick="calcRise()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-black py-5 rounded-2xl transition-all transform hover:scale-[1.02] active:scale-[0.98]">Analyze My Payrise</button>
+            </div>
+
+            <div id="rise-result" class="hidden mt-10 space-y-4">
+                <div class="p-6 bg-zinc-950 rounded-2xl border border-zinc-800 text-center">
+                    <p class="text-zinc-500 text-xs font-bold uppercase mb-1">New Annual Take-Home (Est)</p>
+                    <h2 id="new-take-home" class="text-4xl font-black text-emerald-400">£0</h2>
+                </div>
+                
+                <div class="p-4 bg-emerald-900/20 rounded-2xl border border-emerald-500/30">
+                    <p class="text-sm text-emerald-100 leading-relaxed">
+                        Your monthly disposable income increases by <span id="monthly-extra" class="font-bold underline">£0</span>. 
+                    </p>
+                </div>
+
+                <div class="pt-4 text-center">
+                    <p class="text-xs text-zinc-500 mb-4 italic">"Maximize your new income before it disappears to inflation."</p>
+                    <a href="https://impact.com" class="inline-block w-full bg-white text-zinc-950 font-bold py-4 rounded-xl hover:bg-zinc-200 transition-colors">Start a High-Yield ISA →</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calcRise() {
+            const salary = parseFloat(document.getElementById('currentSalary').value);
+            const rise = parseFloat(document.getElementById('risePercent').value);
+            
+            if(!salary || !rise) return;
+
+            const newGross = salary * (1 + (rise / 100));
+            
+            // Very simplified UK Tax + NI estimate (~30% total hit for average earners)
+            const oldTakeHome = (salary * 0.75) / 12;
+            const newTakeHome = (newGross * 0.75) / 12;
+            const monthlyExtra = newTakeHome - oldTakeHome;
+
+            document.getElementById('new-take-home').innerText = "£" + Math.round(newGross * 0.75);
+            document.getElementById('monthly-extra').innerText = "£" + Math.round(monthlyExtra);
+            document.getElementById('rise-result').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
