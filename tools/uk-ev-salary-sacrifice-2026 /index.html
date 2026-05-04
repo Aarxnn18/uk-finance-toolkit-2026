@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Salary Sacrifice Calculator 2026 | UK Tax Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-emerald-50 text-emerald-900 font-sans min-h-screen">
+
+    <div class="max-w-xl mx-auto py-12 px-6">
+        <header class="text-center mb-10">
+            <div class="inline-block bg-emerald-200 text-emerald-800 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter mb-4">2026 Benefit-in-Kind (BiK) Ready</div>
+            <h1 class="text-3xl font-black">The EV <span class="text-emerald-600">Tax Hack</span></h1>
+            <p class="text-emerald-700/60 mt-1">See how much a Tesla or ID.3 actually costs you.</p>
+        </header>
+
+        <div class="bg-white rounded-[2rem] p-8 shadow-2xl shadow-emerald-200/50 border border-emerald-100">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs font-bold text-emerald-400 mb-2 uppercase tracking-widest">Gross Annual Salary (£)</label>
+                    <input type="number" id="salary" placeholder="e.g. 60000" class="w-full p-4 bg-emerald-50/30 border border-emerald-100 rounded-2xl outline-none focus:ring-2 focus:ring-emerald-500 text-lg font-bold">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-emerald-400 mb-2 uppercase tracking-widest">Monthly Lease Cost (Pre-Tax)</label>
+                    <input type="number" id="lease" placeholder="e.g. 600" class="w-full p-4 bg-emerald-50/30 border border-emerald-100 rounded-2xl outline-none focus:ring-2 focus:ring-emerald-500 text-lg font-bold">
+                </div>
+
+                <button onclick="calcEV()" class="w-full bg-emerald-600 text-white font-bold py-5 rounded-2xl hover:bg-emerald-700 transition-all shadow-lg shadow-emerald-200 uppercase tracking-widest">Calculate Net Cost</button>
+            </div>
+
+            <div id="ev-result" class="hidden mt-10 space-y-4">
+                <div class="p-6 bg-emerald-900 rounded-3xl text-center text-white">
+                    <p class="text-emerald-400 text-xs font-bold uppercase tracking-widest mb-2">Your Actual Monthly Cost</p>
+                    <h2 id="net-cost" class="text-5xl font-black mb-2">£0</h2>
+                    <p class="text-emerald-200 text-xs italic">vs. paying £<span id="gross-display">0</span> from your bank account</p>
+                </div>
+                
+                <div class="bg-emerald-50 border border-emerald-100 p-5 rounded-2xl">
+                    <p class="text-sm text-emerald-800 leading-relaxed text-center">
+                        By using Salary Sacrifice, you save approx. <span class="font-bold text-emerald-600">£<span id="savings">0</span></span> per month in tax.
+                    </p>
+                </div>
+
+                <a href="https://impact.com" class="block w-full bg-slate-900 text-white text-center font-bold py-4 rounded-xl hover:bg-slate-800 transition-colors uppercase text-xs tracking-widest">Check EV Availability at My Employer →</a>
+            </div>
+        </div>
+
+        <p class="mt-8 text-center text-emerald-800/40 text-[9px] uppercase leading-tight font-medium">Calculation includes 2026 BiK rates (3%) and standard Class 1 NI savings.</p>
+    </div>
+
+    <script>
+        function calcEV() {
+            const salary = parseFloat(document.getElementById('salary').value);
+            const lease = parseFloat(document.getElementById('lease').value);
+            
+            if(!salary || !lease) return;
+
+            // Simplified UK Tax + NI math (approx 42% for Higher Rate, 28% for Basic)
+            let taxSavingRate = (salary > 50270) ? 0.42 : 0.28;
+            
+            const taxSaved = lease * taxSavingRate;
+            const bikTax = (lease * 0.03); // Benefit in Kind for 2026 EVs
+            const netCost = lease - taxSaved + bikTax;
+
+            document.getElementById('net-cost').innerText = "£" + Math.round(netCost);
+            document.getElementById('gross-display').innerText = Math.round(lease);
+            document.getElementById('savings').innerText = Math.round(taxSaved - bikTax);
+            document.getElementById('ev-result').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
