@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Energy Price Cap Forecast 2026 | UK Bill Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-amber-50 text-stone-900 font-sans min-h-screen">
+
+    <div class="max-w-xl mx-auto py-16 px-6">
+        <header class="text-center mb-10">
+            <span class="bg-amber-200 text-amber-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">April 2026 Update</span>
+            <h1 class="text-3xl font-black mt-4 mb-2">Energy Price <span class="text-amber-600">Forecaster</span></h1>
+            <p class="text-stone-500">Estimate your new monthly payments based on the latest cap.</p>
+        </header>
+
+        <main class="bg-white rounded-3xl p-8 shadow-xl border border-amber-100">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs font-bold text-stone-400 mb-2 uppercase">Current Monthly Bill</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-4 text-stone-400 font-bold">£</span>
+                        <input type="number" id="currentBill" placeholder="e.g. 150" class="w-full p-4 pl-8 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:border-amber-500 text-lg font-semibold text-stone-800">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-stone-400 mb-2 uppercase">Your Main Heating Source</label>
+                    <select id="heating" class="w-full p-4 bg-stone-50 border border-stone-200 rounded-xl outline-none focus:border-amber-500 font-medium">
+                        <option value="1.05">Gas Central Heating</option>
+                        <option value="1.15">Electric / Heat Pump</option>
+                        <option value="1.00">Other</option>
+                    </select>
+                </div>
+
+                <button onclick="calculateEnergy()" class="w-full bg-stone-900 text-white font-bold py-5 rounded-2xl hover:bg-amber-600 transition-all shadow-lg text-lg">Calculate Forecast</button>
+            </div>
+
+            <div id="energy-result" class="hidden mt-10 pt-8 border-t border-stone-100">
+                <div class="text-center">
+                    <p class="text-stone-400 text-xs font-bold uppercase tracking-widest">Estimated New Monthly Cost</p>
+                    <h2 id="new-total" class="text-5xl font-black text-stone-900 my-2">£0</h2>
+                    <p id="difference" class="text-emerald-600 font-bold text-sm mb-8"></p>
+                </div>
+                
+                <div class="bg-amber-100 rounded-2xl p-6 border border-amber-200">
+                    <h3 class="text-amber-900 font-bold mb-1">Could you pay less?</h3>
+                    <p class="text-amber-800 text-sm mb-4">Fixed-rate tariffs are returning to the market. See if you can lock in a lower price today.</p>
+                    <a href="https://impact.com" class="block w-full bg-amber-500 hover:bg-amber-600 text-white text-center font-bold py-3 rounded-xl transition-colors">Compare Live Tariffs →</a>
+                </div>
+            </div>
+        </main>
+
+        <footer class="mt-8 text-center text-stone-400 text-[10px] leading-relaxed uppercase tracking-tighter">
+            Estimates based on typical medium-usage households. Actual costs depend on your specific tariff and consumption.
+        </footer>
+    </div>
+
+    <script>
+        function calculateEnergy() {
+            const current = parseFloat(document.getElementById('currentBill').value);
+            const multiplier = parseFloat(document.getElementById('heating').value);
+            
+            if(!current || current <= 0) return;
+
+            // Simplified logic representing a 5% cap change flavored by heating type
+            const forecast = current * multiplier;
+            const diff = forecast - current;
+
+            document.getElementById('new-total').innerText = "£" + Math.round(forecast);
+            
+            const diffEl = document.getElementById('difference');
+            if(diff >= 0) {
+                diffEl.innerText = "+ £" + Math.round(diff) + " increase expected";
+                diffEl.className = "text-amber-600 font-bold text-sm mb-8";
+            } else {
+                diffEl.innerText = "- £" + Math.abs(Math.round(diff)) + " decrease expected";
+                diffEl.className = "text-emerald-600 font-bold text-sm mb-8";
+            }
+
+            document.getElementById('energy-result').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
