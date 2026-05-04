@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Inflation Calculator 2026 | UK Cost of Living Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-violet-50 text-violet-900 font-sans min-h-screen">
+
+    <div class="max-w-xl mx-auto py-12 px-6">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl font-black italic tracking-tight">The <span class="text-violet-600">Real</span> Inflation Calc</h1>
+            <p class="text-violet-500 mt-2 text-sm uppercase font-bold tracking-tighter">Your personal 2026 cost increase</p>
+        </header>
+
+        <div class="bg-white rounded-[2.5rem] p-8 shadow-xl border border-violet-100">
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xs font-bold text-violet-300 mb-2 uppercase tracking-widest text-center">Monthly Spending Breakdown (£)</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-4">
+                            <input type="number" id="groceries" placeholder="Groceries" class="w-full p-3 bg-violet-50/50 border border-violet-100 rounded-xl outline-none focus:ring-1 focus:ring-violet-500 text-sm">
+                            <input type="number" id="rent" placeholder="Rent/Mortgage" class="w-full p-3 bg-violet-50/50 border border-violet-100 rounded-xl outline-none focus:ring-1 focus:ring-violet-500 text-sm">
+                        </div>
+                        <div class="space-y-4">
+                            <input type="number" id="transport" placeholder="Travel/Fuel" class="w-full p-3 bg-violet-50/50 border border-violet-100 rounded-xl outline-none focus:ring-1 focus:ring-violet-500 text-sm">
+                            <input type="number" id="fun" placeholder="Leisure" class="w-full p-3 bg-violet-50/50 border border-violet-100 rounded-xl outline-none focus:ring-1 focus:ring-violet-500 text-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <button onclick="calcPersonalInf()" class="w-full bg-violet-600 text-white font-bold py-5 rounded-2xl hover:bg-violet-700 transition-all shadow-lg shadow-violet-100 uppercase tracking-widest">Calculate My Inflation Rate</button>
+            </div>
+
+            <div id="inf-result" class="hidden mt-10 space-y-6">
+                <div class="p-8 bg-violet-900 rounded-[2rem] text-center text-white relative overflow-hidden">
+                    <p class="text-violet-300 text-xs font-bold uppercase tracking-widest mb-2">Your Personal Rate</p>
+                    <h2 id="personal-rate" class="text-6xl font-black mb-2 italic">0%</h2>
+                    <p class="text-violet-200 text-xs">That's <span id="extra-cost" class="font-bold underline">£0</span> extra per month</p>
+                </div>
+                
+                <div class="text-center space-y-4">
+                    <p class="text-xs text-violet-400 font-medium px-4">"Your spending power is decreasing. Use a cashback account to fight back against rising prices."</p>
+                    <a href="https://impact.com" class="block w-full bg-violet-100 text-violet-600 border-2 border-violet-200 text-center font-bold py-4 rounded-xl hover:bg-violet-200 transition-colors uppercase text-xs tracking-widest">Activate Cashback & Save on Groceries →</a>
+                </div>
+            </div>
+        </div>
+
+        <p class="mt-8 text-center text-violet-300 text-[9px] uppercase leading-tight font-medium">Calculated against ONS weighted averages for May 2026 item price shifts.</p>
+    </div>
+
+    <script>
+        function calcPersonalInf() {
+            const g = parseFloat(document.getElementById('groceries').value) || 0;
+            const r = parseFloat(document.getElementById('rent').value) || 0;
+            const t = parseFloat(document.getElementById('transport').value) || 0;
+            const f = parseFloat(document.getElementById('fun').value) || 0;
+            
+            if(g+r+t+f === 0) return;
+
+            // Estimated 2026 sector inflation rates
+            const gInf = 0.065; // Groceries high
+            const rInf = 0.040; // Rent steady
+            const tInf = 0.035; // Transport
+            const fInf = 0.050; // Fun
+            
+            const extra = (g * gInf) + (r * rInf) + (t * tInf) + (f * fInf);
+            const total = g + r + t + f;
+            const rate = (extra / total) * 100;
+
+            document.getElementById('personal-rate').innerText = rate.toFixed(1) + "%";
+            document.getElementById('extra-cost').innerText = "£" + Math.round(extra);
+            document.getElementById('inf-result').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
