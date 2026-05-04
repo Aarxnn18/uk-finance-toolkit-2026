@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Rate Shock Calculator 2026 | UK Remortgage Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-white font-sans min-h-screen">
+
+    <div class="max-w-xl mx-auto py-16 px-6">
+        <header class="text-center mb-10">
+            <h1 class="text-3xl font-bold mb-2">Mortgage <span class="text-indigo-400">Rate Shock</span> 2026</h1>
+            <p class="text-slate-400">See how much your monthly payments will rise.</p>
+        </header>
+
+        <div class="bg-slate-800 rounded-3xl p-8 shadow-2xl border border-slate-700">
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 mb-2 uppercase">Remaining Mortgage Balance</label>
+                    <input type="number" id="balance" placeholder="e.g. 200000" class="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl outline-none focus:border-indigo-500 text-xl">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 mb-2 uppercase">Current Rate %</label>
+                        <input type="number" id="oldRate" step="0.1" placeholder="2.1" class="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 mb-2 uppercase">New Rate %</label>
+                        <input type="number" id="newRate" step="0.1" placeholder="5.2" class="w-full p-4 bg-slate-900 border border-slate-700 rounded-xl outline-none">
+                    </div>
+                </div>
+                <button onclick="calcShock()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-xl transition-all shadow-lg">Calculate My Increase</button>
+            </div>
+
+            <div id="shock-result" class="hidden mt-8 pt-8 border-t border-slate-700 text-center">
+                <p class="text-slate-400 text-sm uppercase font-bold tracking-widest">Your Monthly Increase</p>
+                <h2 id="monthly-jump" class="text-5xl font-black text-indigo-400 my-2">£0</h2>
+                <p id="shock-text" class="text-slate-300 text-sm mb-6"></p>
+                
+                <div class="bg-indigo-900/30 border border-indigo-500/50 p-6 rounded-2xl">
+                    <p class="text-sm mb-4 italic text-indigo-200">"Don't accept the standard variable rate. You could save thousands by locking in early."</p>
+                    <a href="https://impact.com" class="inline-block bg-white text-indigo-900 font-bold px-6 py-3 rounded-lg hover:bg-indigo-100 transition-colors">Find a Better Rate Today</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function calcShock() {
+            const P = parseFloat(document.getElementById('balance').value);
+            const oldR = (parseFloat(document.getElementById('oldRate').value) / 100) / 12;
+            const newR = (parseFloat(document.getElementById('newRate').value) / 100) / 12;
+            const n = 300; // Assuming 25 years remaining
+
+            if(!P || !oldR || !newR) return;
+
+            const oldPay = P * (oldR * Math.pow(1 + oldR, n)) / (Math.pow(1 + oldR, n) - 1);
+            const newPay = P * (newR * Math.pow(1 + newR, n)) / (Math.pow(1 + newR, n) - 1);
+            const jump = newPay - oldPay;
+
+            document.getElementById('monthly-jump').innerText = "£" + Math.round(jump);
+            document.getElementById('shock-text').innerText = "Your payment will rise from £" + Math.round(oldPay) + " to £" + Math.round(newPay) + " per month.";
+            document.getElementById('shock-result').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
