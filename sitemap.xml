@@ -1,81 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Main hub -->
+  <!-- Homepage -->
   <url>
     <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/</loc>
-    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
 
-  <!-- Tool 1 -->
+  <!-- TOOL PAGES -->
+
   <url>
-    <loc>https://aarxnn18.github.io/vinted-tax-checker-2026/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/tools/vinted-tax-checker-2026/</loc>
     <priority>0.9</priority>
   </url>
 
-  <!-- Tool 2 -->
   <url>
-    <loc>https://aarxnn18.github.io/mortgage-rate-shock-2026/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/tools/mortgage-rate-shock-2026/</loc>
     <priority>0.9</priority>
   </url>
 
-  <!-- Tool 3 -->
   <url>
-    <loc>https://aarxnn18.github.io/energy-bill-forecast-2026/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/tools/energy-bill-forecast-2026/</loc>
     <priority>0.9</priority>
   </url>
 
-  <!-- Tool 4 -->
   <url>
-    <loc>https://aarxnn18.github.io/uk-student-loan-calculator-2026/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/tools/uk-student-loan-calculator-2026/</loc>
     <priority>0.9</priority>
   </url>
 
-  <!-- Tool 5 -->
   <url>
-    <loc>https://aarxnn18.github.io/uk-payrise-calculator-2026/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/tools/uk-payrise-calculator-2026/</loc>
     <priority>0.9</priority>
   </url>
 
-  <!-- Tool 6 -->
   <url>
-    <loc>https://aarxnn18.github.io/side-hustle-expenses-2026/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/tools/side-hustle-expenses-2026/</loc>
     <priority>0.9</priority>
   </url>
 
-  <!-- Tool 7 -->
   <url>
-    <loc>https://aarxnn18.github.io/uk-isa-tax-shield-2026/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/tools/uk-isa-tax-shield-2026/</loc>
     <priority>0.9</priority>
   </url>
 
-  <!-- Tool 8 -->
   <url>
-    <loc>https://aarxnn18.github.io/uk-ev-salary-sacrifice-2026/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/tools/uk-ev-salary-sacrifice-2026/</loc>
     <priority>0.9</priority>
   </url>
 
-  <!-- Tool 9 -->
   <url>
-    <loc>https://aarxnn18.github.io/uk-student-maintenance-calc-2026/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/tools/uk-student-maintenance-calc-2026/</loc>
     <priority>0.9</priority>
   </url>
 
-  <!-- Tool 10 -->
   <url>
-    <loc>https://aarxnn18.github.io/personal-inflation-calc-2026/</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/tools/personal-inflation-calc-2026/</loc>
     <priority>0.9</priority>
+  </url>
+
+  <!-- OPTIONAL: STRUCTURE SIGNAL (helps crawling clarity) -->
+  <url>
+    <loc>https://aarxnn18.github.io/uk-finance-toolkit-2026/tools/</loc>
+    <priority>0.7</priority>
   </url>
 
 </urlset>
